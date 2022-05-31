@@ -34,11 +34,14 @@ namespace UnityTagsGenerator
     {
         internal static void Run()
         {
-            CreateSourceFile(UnityEditorInternal.InternalEditorUtility.tags);
+            var tags = UnityEditorInternal.InternalEditorUtility.tags;
+            var layers = GetLayers();
+            
+            CreateSourceFile(tags, layers);
             CompilationPipeline.RequestScriptCompilation();
         }
         
-        private static void CreateSourceFile(IEnumerable<string> tags)
+        private static void CreateSourceFile(IEnumerable<string> tags, IReadOnlyDictionary<int, string> layers)
         {
             var currentDirectory = Path.GetDirectoryName(GetCallerPath());
 
@@ -48,27 +51,56 @@ namespace UnityTagsGenerator
             var generatedDirectoryPath = Path.Combine(Application.dataPath, "generated");
             var templateText = File.ReadAllText(Path.Combine(currentDirectory, "../Template~/Tags.template.cs"));
             var compiledTags = "";
+            var compiledLayers = "";
 
             if (!Directory.Exists(generatedDirectoryPath))
                 Directory.CreateDirectory(generatedDirectoryPath);
 
             foreach (var tag in tags)
             {
-                var varName = "";
-                var matches = Regex.Matches(tag, "[A-Za-z0-9_]+");
-
-                for (var i = 0; i < matches.Count; i++)
-                {
-                    if (i > 0)
-                        varName += "_";
-                    varName += matches[i].Value;
-                }
-                
+                var varName = ValidateVariableName(tag);
                 compiledTags += $"\tpublic const string {varName} = \"{tag}\";\n";
             }
             
-            var compiledTemplateText = string.Format(templateText, compiledTags);
+            foreach (var pair in layers)
+            {
+                var varName = ValidateVariableName(pair.Value);
+                compiledLayers += $"\tpublic const int {varName} = {pair.Key};\n";
+            }
+            
+            var compiledTemplateText = string.Format(templateText, compiledTags, compiledLayers);
             File.WriteAllText(Path.Combine(generatedDirectoryPath, "Tags.cs"), compiledTemplateText);
+        }
+
+        private static string ValidateVariableName(string name)
+        {
+            var varName = "";
+            var matches = Regex.Matches(name, "[A-Za-z0-9_]+");
+
+            for (var i = 0; i < matches.Count; i++)
+            {
+                if (i > 0)
+                    varName += "_";
+                varName += matches[i].Value;
+            }
+
+            return varName;
+        }
+        
+        private static IReadOnlyDictionary<int, string> GetLayers()
+        {
+            const int layersCount = 32;
+            var layers = new Dictionary<int, string>();
+
+            for (var i = 0; i < layersCount; i++)
+            {
+                var name = LayerMask.LayerToName(i);
+                
+                if (!string.IsNullOrEmpty(name))
+                    layers.Add(i, name);
+            }
+
+            return layers;
         }
 
         private static string GetCallerPath([CallerFilePath] string path = "")

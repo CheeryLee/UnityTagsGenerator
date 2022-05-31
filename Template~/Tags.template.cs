@@ -32,3 +32,8 @@ public static class Tags
 {{
 {0}
 }}
+
+public static class Layers
+{{
+{1}
+}}
