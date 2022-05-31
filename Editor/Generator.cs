@@ -91,6 +91,7 @@ namespace UnityTagsGenerator
         {
             const int layersCount = 32;
             var layers = new Dictionary<int, string>();
+            var equalKeys = new List<int>();
 
             for (var i = 0; i < layersCount; i++)
             {
@@ -99,6 +100,34 @@ namespace UnityTagsGenerator
                 if (!string.IsNullOrEmpty(name))
                     layers.Add(i, name);
             }
+
+            foreach (var pair in layers)
+            {
+                var equalFound = false;
+
+                if (equalKeys.Contains(pair.Key))
+                    continue;
+                
+                foreach (var innerPair in layers)
+                {
+                    if (pair.Key == innerPair.Key)
+                        continue;
+
+                    if (pair.Value != innerPair.Value)
+                        continue;
+                    
+                    if (!equalFound)
+                    {
+                        equalKeys.Add(pair.Key);
+                        equalFound = true;
+                    }
+                        
+                    equalKeys.Add(innerPair.Key);
+                }
+            }
+
+            foreach (var key in equalKeys)
+                layers[key] += $"_{key}";
 
             return layers;
         }
