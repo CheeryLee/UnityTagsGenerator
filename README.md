@@ -3,30 +3,33 @@
 [![Made with Unity](https://img.shields.io/badge/Made%20with-Unity-57b9d3.svg?style=flat&logo=unity)](https://unity3d.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This tool allows to generate compile time source file with tag names of your Unity project.
+This tool allows to generate compile time source file with tag names and layer values of your Unity project.
 
 Tested with Unity 2019+, but it should work from 2017.3+ too.
 
 ## How to use
 
-By default there are some tags that Unity provides out-of-box. They will be created even if you don't set something in Tag Manager.
+By default there are some tags and layers that Unity provides out-of-box. They will be created even if you don't set something in Tag Manager.
 
-1. after every asset related operation there would be automatically writed a new file called Tags.cs in folder **Assets/generated** with **Tags** class inside:
+After every asset related operation there would be automatically writed a new file called Tags.cs in folder **Assets/generated** with **Tags** and **Layers** classes inside:
 
 ```csharp
 public static class Tags
 {
-	public const string Untagged = "Untagged";
-	public const string Respawn = "Respawn";
-	public const string Finish = "Finish";
-	public const string EditorOnly = "EditorOnly";
-	public const string MainCamera = "MainCamera";
-	public const string Player = "Player";
-	public const string GameController = "GameController";
+    public const string Untagged = "Untagged";
+    public const string Respawn = "Respawn";
+    ...
+}
+
+public static class Layers
+{
+    public const int Default = 0;
+    public const int TransparentFX = 1;
+    ...
 }
 ```
 
-2. use it wherever you want instead of string literals:
+Use it wherever you want instead of string literals:
 
 ```csharp
 void OnTriggerEnter(Collider other)
@@ -37,6 +40,23 @@ void OnTriggerEnter(Collider other)
     // let's do it with our new killing spree feature
     if (other.gameObject.CompareTag(Tags.Player)) { ... }
 }
+```
+
+... or instead of bitwise operations for layer mask:
+
+```csharp
+// Layers.UI returns an appropriate value
+if (Physics.Raycast(transform.position, Vector3.forward, out hit, 10, Layers.UI))
+{
+    Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+    Debug.Log("Did Hit");
+}
+```
+
+In addition there are some tricky useful methods in **LayerExtensions** class:
+```csharp
+// don't write 1 << 3 | 1 << 5, just do this:
+LayersExtensions.Where(Layers.Third, Layers.Fifth);
 ```
 
 ## How does it work?
