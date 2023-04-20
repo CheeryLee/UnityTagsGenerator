@@ -44,7 +44,7 @@ namespace UnityTagsGenerator
         {
             var mask = (int)All();
             foreach (var layer in layerNumbers)
-                mask ^= layer;
+                mask ^= 1 << layer;
 
             return mask;
         }
@@ -52,8 +52,9 @@ namespace UnityTagsGenerator
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LayerMask Except(LayerMask layerMask)
         {
-            var mask = (int)All();
-            return mask ^ layerMask;
+            var mask1 = (int)All();
+            var mask2 = (int)layerMask;
+            return mask1 ^ mask2;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -67,13 +68,15 @@ namespace UnityTagsGenerator
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LayerMask Union(LayerMask mask1, LayerMask mask2)
+        public static LayerMask Union(this LayerMask mask1, LayerMask mask2)
         {
-            return mask1 | mask2;
+            var intMask1 = (int)mask1;
+            var intMask2 = (int)mask2;
+            return intMask1 | intMask2;
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LayerMask Union(LayerMask mask1, params int[] layerNumbers)
+        public static LayerMask Union(this LayerMask mask1, params int[] layerNumbers)
         {
             return Union(mask1, Where(layerNumbers));
         }
