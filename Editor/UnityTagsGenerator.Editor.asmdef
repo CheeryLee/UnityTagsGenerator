@@ -1,5 +1,5 @@
 {
-    "name": "UnityTagsGenerator",
+    "name": "UnityTagsGenerator.Editor",
     "references": [],
     "includePlatforms": [
         "Editor"

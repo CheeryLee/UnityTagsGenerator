@@ -1,0 +1,21 @@
+{
+    "name": "UnityTagsGenerator.Tests.Editor",
+    "references": [
+        "GUID:a3871aa0d90b7ae4f84fabb6008d9026"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
