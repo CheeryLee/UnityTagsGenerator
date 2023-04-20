@@ -28,7 +28,7 @@ using System.Text.RegularExpressions;
 using UnityEditor.Compilation;
 using UnityEngine;
 
-namespace UnityTagsGenerator
+namespace UnityTagsGenerator.Editor
 {
     internal static class Generator
     {

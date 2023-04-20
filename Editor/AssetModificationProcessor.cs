@@ -22,7 +22,7 @@
 
 using System.Linq;
 
-namespace UnityTagsGenerator
+namespace UnityTagsGenerator.Editor
 {
     internal class AssetModificationProcessor : UnityEditor.AssetModificationProcessor
     {

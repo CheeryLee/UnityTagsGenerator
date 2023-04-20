@@ -1,0 +1,20 @@
+{
+  "name": "com.cheerylee.unity-tags-generator",
+  "displayName": "UnityTagsGenerator",
+  "version": "1.0.0",
+  "unity": "2019.1",
+  "description": "This tool allows to generate compile time source file with tag names and layer values of your Unity project",
+  "documentationUrl": "https://github.com/CheeryLee/UnityTagsGenerator/blob/master/README.md",
+  "license": "MIT",
+  "licensesUrl": "https://github.com/CheeryLee/UnityTagsGenerator/blob/master/LICENSE",
+  "author": {
+    "name": "Alexander Pluzhnikov",
+    "url": "https://github.com/CheeryLee"
+  },
+  "keywords": [
+    "tag",
+    "layer",
+    "generator",
+    "extension"
+  ]
+}
