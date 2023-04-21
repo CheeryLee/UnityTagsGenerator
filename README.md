@@ -2,7 +2,7 @@
 
 [![Made with Unity](https://img.shields.io/badge/Made%20with-Unity-57b9d3.svg?style=flat&logo=unity)](https://unity3d.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/CheeryLee/UnityTagsGenerator?display_name=tag&include_prereleases)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/CheeryLee/UnityTagsGenerator?display_name=tag)
 
 This tool allows to generate compile time source file with tag names and layer values of your Unity project.
 
