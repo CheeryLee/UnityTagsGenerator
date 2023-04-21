@@ -2,10 +2,24 @@
 
 [![Made with Unity](https://img.shields.io/badge/Made%20with-Unity-57b9d3.svg?style=flat&logo=unity)](https://unity3d.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/CheeryLee/UnityTagsGenerator?display_name=tag&include_prereleases)
 
 This tool allows to generate compile time source file with tag names and layer values of your Unity project.
 
 Tested with Unity 2019+, but it should work from 2017.3+ too.
+
+## Getting started
+You can install the package directly from GitHub by using Package Manager:
+
+![image](https://user-images.githubusercontent.com/11297752/233580399-45635f58-c37d-447d-b497-99cf05fc87d1.png)
+
+![image](https://user-images.githubusercontent.com/11297752/233580798-0097314f-98b8-42a6-8cd5-7731c5e059c5.png)
+
+... or add the URL to `Packages/manifest.json`:
+
+`"com.cheerylee.unity-tags-generator": "https://github.com/CheeryLee/UnityTagsGenerator.git#1.0.0"`
+
+This project uses the `*.*.*` release tags. So after the hashtag in URL you can specify a target version to install. For example, it may be `#1.0.0`.
 
 ## How to use
 
